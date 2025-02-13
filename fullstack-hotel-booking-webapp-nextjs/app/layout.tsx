@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "StayNEnjoy - Stay Safe, Enjoy Life",
   description: "Book a hotel of your choice",
-  icons: {icon: '/icon.png'}
+  icons: { icon: "/icon.png" },
 };
 
 export default function RootLayout({
@@ -21,9 +21,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
-          <Navbar />
-          {children}
-        
+          <main className="flex flex-col min-h-screen bg-secondary">
+            <Navbar />
+
+            <section className="flex flex-grow">
+
+            {children}
+            </section>
+          </main>
         </body>
       </html>
     </ClerkProvider>
