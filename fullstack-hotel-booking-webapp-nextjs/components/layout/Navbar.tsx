@@ -11,6 +11,13 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
+// searchbar
+import SearchInput from "../SearchInput";
+
+// mobile nav
+import { ModeToggle } from "../theme-toogle";
+import NavMenu from "./NavMenu";
+
 const Navbar = () => {
   //
   const { userId } = useAuth();
@@ -27,37 +34,41 @@ const Navbar = () => {
         {/* Flex COntainer */}
         <div className="flex justify-between items-center">
           {/* Logo - Section */}
-          <Link href={"/"} className="flex flex-grow items-center gap-1">
+          <Link href={"/"} className="w-fit flex items-center gap-1">
             <Image src={"/logo.png"} alt="logo" width={32} height={32} />
-            <h1 className="font-bold text-xl text-blue-900">StayNEnjoy</h1>
-                  </Link>
-                  
-                  {/* Middle Searchbar - Section */}
-                  
+            <h1 className="font-bold text-xl text-blue-900 dark:text-blue-700">
+              StayNEnjoy
+            </h1>
+          </Link>
+
+          {/* Middle Searchbar - Section */}
+          <SearchInput />
 
           {/* 2nd - Section */}
           <div className="flex gap-x-3 items-center">
             {/* Theme - Section */}
-            <div>Theme</div>
+            <ModeToggle />
 
             {/* Login States - Section */}
-            {!userId ? (
-              <>
+            {userId && <UserButton afterSwitchSessionUrl="/" />}
+            {!userId && (
+              <div className="hidden md:flex gap-x-3">
                 <Button
                   variant={"outline"}
-                  size={"sm"}
+                  size={"sm"} className="px-[3rem] py-4"
                   onClick={() => router.push("/sign-in")}
                 >
-                  Sign in
+                  Sign In
                 </Button>
-                <Button size={"sm"} onClick={() => router.push("/sign-up")}>
-                  Sign up
+                <Button size={"sm"} className="px-[3rem] py-4" onClick={() => router.push("/sign-up")}>
+                  Sign Up
                 </Button>
-              </>
-            ) : (
-              <UserButton afterSwitchSessionUrl="/" />
-            )}
+              </div>
+              )}
+          {/* Responsive mobile Nav - Nav Menu*/}
+          <NavMenu />
           </div>
+
         </div>
       </Container>
     </header>
